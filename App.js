@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import Appbar from './src/components/Appbar';
-import MemoList from './src/components/MemoList';
-import CircleButton from './src/elements/CircleButton';
+import MemoListScreen from './src/screens/MemoListScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,10 +17,7 @@ const styles = StyleSheet.create({
 const App = () => (
   <View style={styles.container}>
     <Appbar />
-
-    <MemoList />
-
-    <CircleButton>+</CircleButton>
+    <MemoListScreen />
   </View>
 );
 
