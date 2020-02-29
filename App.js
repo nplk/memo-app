@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-unresolved
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
