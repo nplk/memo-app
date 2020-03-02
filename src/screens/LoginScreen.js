@@ -1,3 +1,4 @@
+/* eslint-disable arrow-parens */
 import React from 'react';
 import {
   StyleSheet,
@@ -6,6 +7,8 @@ import {
   TouchableHighlight,
   Text,
 } from 'react-native';
+
+import firebase from 'firebase';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,8 +57,15 @@ class LoginScreen extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   handleSubmit() {
-    // this.props.navigation.navigate('Home');
-    // ログイン処理
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then(user => {
+        this.props.navigation.navigate('Home');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   render() {
