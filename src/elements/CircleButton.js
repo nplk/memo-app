@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import * as Font from 'expo-font';
 import { createIconSet } from '@expo/vector-icons';
 import fontAwesome from '../../assets/fonts/fa-solid-900.ttf';
@@ -10,14 +10,18 @@ const CustomIcon = createIconSet(
     plus: '\uf067',
     check: '\uf00c',
   },
-  'fontAwesome'
+  'fontAwesome',
 );
 
 const styles = StyleSheet.create({
-  circleButton: {
-    position: 'absolute',
+  container: {
+    position: 'absolute', // 最上位のTouchableHightlight側でposition指定
     bottom: 32,
     right: 32,
+    width: 48, // ボタンだけでなくTH側でも幅と高さ指定しないとタッチの範囲が広くなる
+    height: 48,
+  },
+  circleButton: {
     width: 48,
     height: 48,
     borderRadius: 24,
@@ -54,7 +58,9 @@ class CircleButton extends React.Component {
   }
 
   render() {
-    const { name, style, color } = this.props;
+    const {
+      name, style, color, onPress,
+    } = this.props;
 
     let bgColor = '#e31676';
     let textColor = '#fff';
@@ -65,16 +71,18 @@ class CircleButton extends React.Component {
     }
 
     return (
-      <View style={[styles.circleButton, style, { backgroundColor: bgColor }]}>
-        {this.state.fontLoaded ? (
-          <CustomIcon
-            name={name}
-            style={[styles.circleButtonTitle, { color: textColor }]}
-          >
-            {this.props.children}
-          </CustomIcon>
-        ) : null}
-      </View>
+      <TouchableHighlight style={[styles.container, style]} onPress={onPress} underlayColor="transparent">
+        <View style={[styles.circleButton, { backgroundColor: bgColor }]}>
+          {this.state.fontLoaded ? (
+            <CustomIcon
+              name={name}
+              style={[styles.circleButtonTitle, { color: textColor }]}
+            >
+              {this.props.children}
+            </CustomIcon>
+          ) : null}
+        </View>
+      </TouchableHighlight>
     );
   }
 }
