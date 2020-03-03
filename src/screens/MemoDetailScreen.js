@@ -32,29 +32,52 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     flex: 1,
   },
+  memoBody: {
+    lineHeight: 22,
+    fontSize: 15,
+  },
   editButton: {
     top: 75,
   },
 });
 
 class MemoDetailScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      memo: {},
+    };
+  }
+
+
+  componentDidMount() {
+    const { params } = this.props.navigation.state;
+    this.setState({ memo: params.memo });
+  }
+
   render() {
+    const { memo } = this.state;
     return (
       <View style={styles.container}>
         <View>
           <View style={styles.memoHeader}>
             <View style={styles.memoHeaderContent}>
-              <Text style={styles.memoHeaderTitle}>講座のアイデア</Text>
-              <Text style={styles.memoHeaderDate}>2020/2/29</Text>
+              <Text style={styles.memoHeaderTitle}>{memo.title}</Text>
+              <Text style={styles.memoHeaderDate}>{memo.createdOn}</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.memoContent}>
-          <Text>講座のアイデア</Text>
+          <Text style={styles.memoBody}>{memo.body}</Text>
         </View>
 
-        <CircleButton name="pencil" color="white" style={styles.editButton} onPress={() => { this.props.navigation.navigate('MemoEdit'); }} />
+        <CircleButton
+          name="pencil"
+          color="white"
+          style={styles.editButton}
+          onPress={() => { this.props.navigation.navigate('MemoEdit', { memo }); }}
+        />
       </View>
     );
   }

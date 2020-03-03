@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
 
 class MemoList extends React.Component {
   renderMemo = ({ item }) => (
-    <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
+    <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item }); }}>
       <View style={styles.memoListItem}>
         <Text style={styles.memoTitle}>{item.title}</Text>
-        <Text style={styles.memoDate}>{item.date}</Text>
+        <Text style={styles.memoDate}>{item.createdOn}</Text>
       </View>
     </TouchableHighlight>
   )
