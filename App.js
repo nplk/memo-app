@@ -1,5 +1,6 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Platform } from 'react-native';
 
 import firebase from 'firebase';
 import ENV from './env.json';
@@ -51,7 +52,17 @@ const AppNavigator = createStackNavigator(
     defaultNavigationOptions: {
       headerTitle: 'MEMOT',
       headerStyle: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,
         backgroundColor: '#265356',
+        ...Platform.select({
+          android: {
+            height: 80,
+            paddingTop: 16,
+          },
+        }),
       },
       headerTitleStyle: {
         color: '#fff',

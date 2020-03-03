@@ -114,7 +114,7 @@ class LoginScreen extends React.Component {
           placeholder="Password"
           secureTextEntry
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmitLogin}>
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmitLogin} underlayColor="#c70f66">
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
         <TouchableOpacity
