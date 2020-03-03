@@ -5,8 +5,10 @@ import {
   View,
   TextInput,
   TouchableHighlight,
+  TouchableOpacity,
   Text,
 } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 import firebase from 'firebase';
 
@@ -43,6 +45,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
   },
+  signup: {
+    marginTop: 48,
+    alignSelf: 'center',
+  },
+  signupText: {
+    fontSize: 16,
+  },
 });
 
 class LoginScreen extends React.Component {
@@ -52,20 +61,32 @@ class LoginScreen extends React.Component {
       email: '',
       password: '',
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
+    this.handleSubmitSignup = this.handleSubmitSignup.bind(this);
   }
 
   // eslint-disable-next-line class-methods-use-this
-  handleSubmit() {
+  handleSubmitLogin() {
     firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(user => {
-        this.props.navigation.navigate('Home');
+      .then(() => {
+        // 画面遷移の履歴をリセット。これでログイン前画面まで戻らない。
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Home' }),
+          ],
+        });
+
+        this.props.navigation.dispatch(resetAction);
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
       });
+  }
+
+  handleSubmitSignup() {
+    this.props.navigation.navigate('Signup');
   }
 
   render() {
@@ -93,9 +114,15 @@ class LoginScreen extends React.Component {
           placeholder="Password"
           secureTextEntry
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmit}>
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmitLogin}>
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
+        <TouchableOpacity
+          style={styles.signup}
+          onPress={this.handleSubmitSignup}
+        >
+          <Text style={styles.signupText}>新規会員登録</Text>
+        </TouchableOpacity>
       </View>
     );
   }

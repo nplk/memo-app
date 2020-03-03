@@ -4,6 +4,8 @@ import {
   StyleSheet, View, TextInput, TouchableHighlight, Text,
 } from 'react-native';
 
+import { StackActions, NavigationActions } from 'react-navigation';
+
 import firebase from 'firebase';
 
 const styles = StyleSheet.create({
@@ -55,17 +57,22 @@ class SignupScreen extends React.Component {
     // firebaseでのログイン処理
     firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
       .then((user) => { // サインアップ成功時の処理
-        this.props.navigation.navigate('Home');
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Home' }),
+          ],
+        });
+        this.props.navigation.dispatch(resetAction);
       })
-      .catch((error) => { // サインアップ失敗時の処理
-        console.log(error);
+      .catch(() => { // サインアップ失敗時の処理
       });
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>メンバー登録</Text>
+        <Text style={styles.title}>新規会員登録</Text>
         <TextInput
           style={styles.input}
           value={this.state.email}

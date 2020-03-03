@@ -55,6 +55,13 @@ class MemoDetailScreen extends React.Component {
     this.setState({ memo: params.memo });
   }
 
+  // MemoEdit側で呼び出される。送信ボタン押下で編集後メモデータを渡し、MemoDetailScreenの内容を編集後の最新のものに変更する。
+  returnMemo = (memo) => {
+    this.setState({
+      memo,
+    });
+  }
+
   render() {
     const { memo } = this.state;
     return (
@@ -76,7 +83,7 @@ class MemoDetailScreen extends React.Component {
           name="pencil"
           color="white"
           style={styles.editButton}
-          onPress={() => { this.props.navigation.navigate('MemoEdit', { memo }); }}
+          onPress={() => { this.props.navigation.navigate('MemoEdit', { ...memo, returnMemo: this.returnMemo }); }}
         />
       </View>
     );
