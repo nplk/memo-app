@@ -32,7 +32,7 @@ class MemoListScreen extends React.Component {
       .then((querySnapshot) => {
         const memoList = [];
         querySnapshot.forEach((doc) => {
-          memoList.push(doc.data());
+          memoList.push({ ...doc.data(), key: doc.id });
         });
         this.setState({ memoList });
       })

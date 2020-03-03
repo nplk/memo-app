@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, View, Text, TouchableHighlight,
+  StyleSheet, View, Text, TouchableHighlight, FlatList,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -25,38 +25,22 @@ const styles = StyleSheet.create({
 });
 
 class MemoList extends React.Component {
+  renderMemo = ({ item }) => (
+    <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
+      <View style={styles.memoListItem}>
+        <Text style={styles.memoTitle}>{item.title}</Text>
+        <Text style={styles.memoDate}>{item.date}</Text>
+      </View>
+    </TouchableHighlight>
+  )
+
   render() {
     return (
       <View style={styles.memoList}>
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
-          <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>講座のアイテム</Text>
-            <Text style={styles.memoDate}>2020/2/29</Text>
-          </View>
-        </TouchableHighlight>
-
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
-          <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>講座のアイテム</Text>
-            <Text style={styles.memoDate}>2020/2/29</Text>
-          </View>
-        </TouchableHighlight>
-
-
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
-          <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>講座のアイテム</Text>
-            <Text style={styles.memoDate}>2020/2/29</Text>
-          </View>
-        </TouchableHighlight>
-
-
-        <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail'); }}>
-          <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>講座のアイテム</Text>
-            <Text style={styles.memoDate}>2020/2/29</Text>
-          </View>
-        </TouchableHighlight>
+        <FlatList
+          data={this.props.memoList}
+          renderItem={this.renderMemo}
+        />
       </View>
     );
   }
