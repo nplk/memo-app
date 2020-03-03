@@ -9,6 +9,10 @@ import MemoListScreen from './src/screens/MemoListScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import MemoCreateScreen from './src/screens/MemoCreateScreen';
+
+// Required for side-effects
+require('firebase/firestore');
 
 const firebaseConfig = {
   apiKey: ENV.FIREBASE_API_KEY,
@@ -38,6 +42,9 @@ const AppNavigator = createStackNavigator(
     },
     MemoEdit: {
       screen: MemoEditScreen,
+    },
+    MemoCreate: {
+      screen: MemoCreateScreen,
     },
   },
   {
