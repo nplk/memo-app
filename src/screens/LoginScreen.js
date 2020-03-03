@@ -9,8 +9,11 @@ import {
   Text,
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
+import * as SecureStore from 'expo-secure-store';
 
 import firebase from 'firebase';
+
+import Loading from '../elements/Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -60,9 +63,34 @@ class LoginScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
+      isLoading: true,
     };
     this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
     this.handleSubmitSignup = this.handleSubmitSignup.bind(this);
+  }
+
+  async componentDidMount() {
+    const email = await SecureStore.getItemAsync('email');
+    const password = await SecureStore.getItemAsync('password');
+
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ isLoading: false });
+        this.navigateToHome();
+      })
+      .catch();
+  }
+
+  navigateToHome() {
+    // 画面遷移の履歴をリセット。これでログイン前画面まで戻らない。
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Home' })],
+    });
+
+    this.props.navigation.dispatch(resetAction);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -71,18 +99,11 @@ class LoginScreen extends React.Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        // 画面遷移の履歴をリセット。これでログイン前画面まで戻らない。
-        const resetAction = StackActions.reset({
-          index: 0,
-          actions: [
-            NavigationActions.navigate({ routeName: 'Home' }),
-          ],
-        });
-
-        this.props.navigation.dispatch(resetAction);
+        SecureStore.setItemAsync('email', this.state.email);
+        SecureStore.setItemAsync('password', this.state.password);
+        this.navigateToHome();
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   }
 
   handleSubmitSignup() {
@@ -92,6 +113,7 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Loading text="ログイン中" isLoading={this.state.isLoading} />
         <Text style={styles.title}>ログイン</Text>
         <TextInput
           style={styles.input}
@@ -114,7 +136,11 @@ class LoginScreen extends React.Component {
           placeholder="Password"
           secureTextEntry
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmitLogin} underlayColor="#c70f66">
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleSubmitLogin}
+          underlayColor="#c70f66"
+        >
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
         <TouchableOpacity
