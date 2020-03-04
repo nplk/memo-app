@@ -26,18 +26,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const Loading = (props) => {
-  const { text, isLoading } = props;
-  if (!isLoading) {
-    return null;
+class Loading extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: '',
+      isLoading: false,
+    };
   }
 
-  return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" />
-      <Text style={styles.text}>{text}</Text>
-    </View>
-  );
-};
+  componentDidMount() {
+    this.setState({
+      text: this.props.text,
+      isLoading: this.props.isLoading,
+    });
+  }
+
+  render() {
+    if (!this.state.isLoading) {
+      return null;
+    }
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" />
+        <Text style={styles.text}>{this.state.text}</Text>
+      </View>
+    );
+  }
+}
 
 export default Loading;

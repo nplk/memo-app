@@ -13,8 +13,6 @@ import * as SecureStore from 'expo-secure-store';
 
 import firebase from 'firebase';
 
-import Loading from '../elements/Loading';
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -63,7 +61,6 @@ class LoginScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isLoading: true,
     };
     this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
     this.handleSubmitSignup = this.handleSubmitSignup.bind(this);
@@ -72,15 +69,15 @@ class LoginScreen extends React.Component {
   async componentDidMount() {
     const email = await SecureStore.getItemAsync('email');
     const password = await SecureStore.getItemAsync('password');
-
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ isLoading: false });
         this.navigateToHome();
       })
-      .catch();
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   navigateToHome() {
@@ -113,7 +110,6 @@ class LoginScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Loading text="ログイン中" isLoading={this.state.isLoading} />
         <Text style={styles.title}>ログイン</Text>
         <TextInput
           style={styles.input}
