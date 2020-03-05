@@ -28,7 +28,7 @@ class MemoList extends React.Component {
   renderMemo = ({ item }) => (
     <TouchableHighlight onPress={() => { this.props.navigation.navigate('MemoDetail', { memo: item }); }}>
       <View style={styles.memoListItem}>
-        <Text style={styles.memoTitle}>{item.title}</Text>
+        <Text style={styles.memoTitle}>{item.body.split(20)}</Text>
         <Text style={styles.memoDate}>{item.createdOn}</Text>
       </View>
     </TouchableHighlight>

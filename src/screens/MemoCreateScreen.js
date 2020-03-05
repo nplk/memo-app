@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, View, TextInput, ScrollView, KeyboardAvoidingView,
+  StyleSheet, TextInput, KeyboardAvoidingView,
 } from 'react-native';
 
 import firebase from 'firebase';
@@ -39,7 +39,6 @@ class MemoCreateScreen extends React.Component {
     db.collection(`users/${currentUser.uid}/memos`).add({
       body: this.state.body,
       createdOn: new Date(),
-      title: 'Hello',
     })
       .then(() => {
         this.props.navigation.goBack();

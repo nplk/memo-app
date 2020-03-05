@@ -69,7 +69,7 @@ class MemoDetailScreen extends React.Component {
         <View>
           <View style={styles.memoHeader}>
             <View style={styles.memoHeaderContent}>
-              <Text style={styles.memoHeaderTitle}>{memo.title}</Text>
+              <Text style={styles.memoHeaderTitle}>{memo.body}</Text>
               <Text style={styles.memoHeaderDate}>{memo.createdOn}</Text>
             </View>
           </View>
