@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  StyleSheet, View, TextInput, TouchableHighlight, Text,
+  StyleSheet, View, TextInput, TouchableHighlight, Text, TouchableOpacity,
 } from 'react-native';
 
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -41,6 +41,14 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
   },
+  login: {
+    marginTop: 48,
+    alignSelf: 'center',
+  },
+  loginText: {
+    fontSize: 16,
+  },
+
 });
 
 class SignupScreen extends React.Component {
@@ -51,6 +59,7 @@ class SignupScreen extends React.Component {
       password: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmitLogin = this.handleSubmitLogin.bind(this);
   }
 
   handleSubmit() {
@@ -68,6 +77,11 @@ class SignupScreen extends React.Component {
       .catch(() => { // サインアップ失敗時の処理
       });
   }
+
+  handleSubmitLogin() {
+    this.props.navigation.navigate('Login');
+  }
+
 
   render() {
     return (
@@ -90,9 +104,16 @@ class SignupScreen extends React.Component {
           placeholder="Password"
           secureTextEntry
         />
-        <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor="#c70f66">
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor="#1e4245">
           <Text style={styles.buttonTitle}>送信する</Text>
         </TouchableHighlight>
+        <TouchableOpacity
+          style={styles.login}
+          onPress={this.handleSubmitLogin}
+        >
+          <Text style={styles.loginText}>アカウントをお持ちの方(ログイン画面)</Text>
+        </TouchableOpacity>
+
       </View>
     );
   }

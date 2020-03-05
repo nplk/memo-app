@@ -1,6 +1,9 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { Platform } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { FontAwesome } from '@expo/vector-icons';
+import React from 'react';
 
 import firebase from 'firebase';
 import ENV from './env.json';

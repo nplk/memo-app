@@ -10,8 +10,9 @@ import {
 } from 'react-native';
 import { StackActions, NavigationActions } from 'react-navigation';
 import * as SecureStore from 'expo-secure-store';
-
 import firebase from 'firebase';
+import Loading from '../elements/Loading';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -75,8 +76,7 @@ class LoginScreen extends React.Component {
       .then(() => {
         this.navigateToHome();
       })
-      .catch(error => {
-        console.log(error);
+      .catch(() => {
       });
   }
 
@@ -100,7 +100,8 @@ class LoginScreen extends React.Component {
         SecureStore.setItemAsync('password', this.state.password);
         this.navigateToHome();
       })
-      .catch(() => {});
+      .catch(() => {
+      });
   }
 
   handleSubmitSignup() {
@@ -135,7 +136,7 @@ class LoginScreen extends React.Component {
         <TouchableHighlight
           style={styles.button}
           onPress={this.handleSubmitLogin}
-          underlayColor="#c70f66"
+          underlayColor="#1e4245"
         >
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>

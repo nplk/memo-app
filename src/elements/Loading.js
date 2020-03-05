@@ -1,10 +1,6 @@
-/* eslint-disable arrow-parens */
 import React from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  ActivityIndicator,
+  View, StyleSheet, ActivityIndicator, Text,
 } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -12,17 +8,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    zIndex: 100,
-    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     alignItems: 'center',
-    marginBottom: 40,
-  },
-  text: {
-    fontSize: 16,
-    margin: 20,
+    justifyContent: 'center',
   },
 });
 
