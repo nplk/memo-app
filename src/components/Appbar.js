@@ -29,7 +29,7 @@ class Appbar extends React.Component {
   render() {
     return (
       <View style={styles.appbar}>
-        <Text style={styles.appbarTitle}>MEMOT</Text>
+        <Text style={styles.appbarTitle}>MEMO-APP</Text>
       </View>
     );
   }

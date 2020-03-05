@@ -50,7 +50,7 @@ const AppNavigator = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      headerTitle: 'MEMOT',
+      headerTitle: 'MEMO-APP',
       headerStyle: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -66,6 +66,8 @@ const AppNavigator = createStackNavigator(
       },
       headerTitleStyle: {
         color: '#fff',
+        alignSelf: 'center',
+        textAlign: 'center',
       },
       headerTintColor: '#fff',
       headerBackTitle: null,

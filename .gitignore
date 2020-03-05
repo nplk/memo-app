@@ -13,3 +13,5 @@ env.json
 
 # macOS
 .DS_Store
+
+/assets
