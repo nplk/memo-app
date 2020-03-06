@@ -2,6 +2,8 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import { StyleSheet, View, Alert } from 'react-native';
+import { StackActions, NavigationActions } from 'react-navigation';
+
 
 import firebase from 'firebase';
 import * as SecureStore from 'expo-secure-store';
@@ -27,6 +29,8 @@ class MemoListScreen extends React.Component {
     this.handleLogoutPress = this.handleLogoutPress.bind(this);
     this.handleMemoDeletePress = this.handleMemoDeletePress.bind(this);
     this.handleUserDeletePress = this.handleUserDeletePress.bind(this);
+    this.navigateToSignup = this.navigateToSignup.bind(this);
+    this.navigateToLogin = this.navigateToLogin.bind(this);
   }
 
   componentDidMount() {
@@ -86,7 +90,7 @@ class MemoListScreen extends React.Component {
       .then(async () => {
         await SecureStore.deleteItemAsync('email');
         await SecureStore.deleteItemAsync('password');
-        this.props.navigation.navigate('Login');
+        this.navigateToLogin();
       })
       .catch(error => {});
   }
@@ -110,7 +114,7 @@ class MemoListScreen extends React.Component {
                 await SecureStore.deleteItemAsync('email');
                 await SecureStore.deleteItemAsync('password');
 
-                this.props.navigation.navigate('Signup');
+                this.navigateToSignup();
               })
               .catch();
           },
@@ -120,6 +124,27 @@ class MemoListScreen extends React.Component {
       { cancelable: false }
     );
   }
+
+  navigateToSignup() {
+    // 画面遷移の履歴をリセット。これでログイン前画面まで戻らない。
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Signup' })],
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
+
+  navigateToLogin() {
+    // 画面遷移の履歴をリセット。これでログイン前画面まで戻らない。
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    });
+
+    this.props.navigation.dispatch(resetAction);
+  }
+
 
   render() {
     return (
