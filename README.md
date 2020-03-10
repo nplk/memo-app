@@ -6,3 +6,6 @@ nplk789
 3.取得する目的  
 アプリへのログイン情報をストレージに保存するために取得します。  
 
+
+https://play.google.com/store/apps/details?id=com.nplk789
+
